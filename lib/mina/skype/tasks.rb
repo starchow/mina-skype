@@ -20,7 +20,7 @@ namespace :skype do
       start_time = fetch(:start_time)
       elapsed = end_time.to_i - start_time.to_i
 
-      announcement = "#{announced_deployer} successfully deployed #{announced_application_name} in #{elapsed} seconds."
+      announcement = "#{announced_deployer} successfully deployed #{announced_application_name} in #{humanize(elapsed)}."
 
       post_skype_message(announcement)
     else
@@ -68,6 +68,17 @@ namespace :skype do
   def post_skype_message(message)
     config_skype unless @skype_is_configured
 
-    SkypeBot.message @event, message
+    # Bold in skype
+    SkypeBot.message @event, "**#{message}**"
+  end
+
+  def humanize secs
+    [[60, :seconds], [60, :minutes], [24, :hours], [1000, :days]].inject([]){ |s, (count, name)|
+      if secs > 0
+        secs, n = secs.divmod(count)
+        s.unshift "#{n.to_i} #{name}"
+      end
+      s
+    }.join(' ')
   end
 end
