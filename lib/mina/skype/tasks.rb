@@ -1,10 +1,4 @@
-require 'mina/hooks'
 require 'skype_bot'
-
-# Before and after hooks for mina deploy
-before_mina :deploy, :'skype:starting'
-after_mina :deploy, :'skype:finished'
-
 
 # Skype tasks
 namespace :skype do

@@ -25,6 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
 
   spec.add_dependency "mina"
-  spec.add_dependency "mina-hooks"
   spec.add_dependency "skype_bot"
 end
