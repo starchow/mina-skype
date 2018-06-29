@@ -1,7 +1,7 @@
 require "mina/skype/version"
 
-require 'mina/slack/defaults'
-require 'mina/slack/tasks'
+require 'mina/skype/defaults'
+require 'mina/skype/tasks'
 
 module Mina
   module Skype
