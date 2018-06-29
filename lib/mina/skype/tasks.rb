@@ -29,7 +29,7 @@ namespace :skype do
   end
 
   def ready_to_run
-    skype_app_id and skype_app_secret and skype_conversation_id
+    fetch(:skype_app_id) and fetch(:skype_app_secret) and fetch(:skype_conversation_id)
   end
 
   def print_error_message
@@ -37,31 +37,31 @@ namespace :skype do
   end
 
   def announced_stage
-    ENV['to'] || rails_env || 'production'
+    ENV['to'] || fetch(:rails_env) || 'production'
   end
 
   def announced_deployer
-    deployer
+    fetch(:deployer)
   end
 
   def short_revision
-    deployed_revision[0..7] if deployed_revision
+    fetch(:deployed_revision)[0..7] if fetch(:deployed_revision)
   end
 
   def announced_application_name
     "".tap do |output|
-      output << skype_application if skype_application
-      output << " #{branch}" if branch
+      output << fetch(:skype_application) if fetch(:skype_application)
+      output << " #{fetch(:branch)}" if fetch(:branch)
       output << " (#{short_revision})" if short_revision
     end
   end
   
   def config_skype
-    SkypeBot::Config.app_id = skype_app_id
-    SkypeBot::Config.app_secret = skype_app_secret
+    SkypeBot::Config.app_id = fetch(:skype_app_id)
+    SkypeBot::Config.app_secret = fetch(:skype_app_secret)
     
     @event = {'service_url' => 'https://smba.trafficmanager.net/apis', 
-             'conversation_id' => skype_conversation_id}
+             'conversation_id' => fetch(:skype_conversation_id)}
     @skype_is_configured = true
   end
 
