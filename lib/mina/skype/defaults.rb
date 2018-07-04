@@ -8,4 +8,4 @@ set :skype_application,     -> { ENV['SKYPE_APPLICATION'] || fetch(:application)
 
 # Git
 set :deployer,              -> { ENV['GIT_AUTHOR_NAME'] || %x[git config user.name].chomp } unless set?(:deployer)
-set :deployed_revision,     -> { ENV['GIT_COMMIT'] || %x[git rev-parse #{fetch(:branch)} unless set?()].strip } unless set?(:deployed_revision)
+set :deployed_revision,     -> { ENV['GIT_COMMIT'] || %x[git rev-parse #{fetch(:branch)}].strip } unless set?(:deployed_revision)
